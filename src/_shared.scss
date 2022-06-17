@@ -1,0 +1,16 @@
+@use 'sass:math';
+
+//* Function: rem()
+//* DESCRIPTION: px -> rem conversion
+@function rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// COLORS
+$elephant: #0B2434;
+$mercury: #E5E5E5;
+$wild-sand: #F5F5F5;
+$steel-gray: #2B283A;
+$white: #FFFFFF;
+
+
