@@ -1,37 +1,37 @@
 import './App.scss';
 import Die from '../die/Die';
+import { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 function App() {
-  /**
+/**
  * Challenge:
  * 
- * - Create a Die component that takes a `value` prop
- * - Render 10 instances of the Die component (manually)
- *      - Provide a number between 1-6 for the value on each
- *        for now
- * - Style the <main> and <Die> components 
- *   to look like they do in the slide
- *      - Hints: Create a container to hold the 10 instances
- *        of the Die component, and use CSS Grid to lay them
- *        out evenly in 2 rows of 5 columns
- *      - Use flexbox on main to center the dice container
- *        in the center of the page
+ * Create state to hold our array of numbers. (Initialize
+ * the state by calling our `allNewDice` function so it 
+ * loads all new dice as soon as the app loads)
+ * 
+ * Map over the state numbers array to generate our array
+ * of Die elements and render those in place of our
+ * manually-written 10 Die elements.
  */
+  const [dice, setDice] = useState(allNewDice());
+
+  function allNewDice(){
+    var newDiceArray = [];
+    for(var i = 0; i < 10; i++) {
+      newDiceArray.push(Math.floor(Math.random() * (6 - 1 + 1) + 1));
+    }
+    return newDiceArray;
+  }
+
+  const diceElements = dice.map(die => <Die key={nanoid()} value={die}/>);
 
   return (
     <div className="app">
       <main>
-        <div class="dices">
-          <Die value={1}/>
-          <Die value={2}/>
-          <Die value={3}/>
-          <Die value={4}/>
-          <Die value={5}/>
-          <Die value={6}/>
-          <Die value={7}/>
-          <Die value={8}/>
-          <Die value={9}/>
-          <Die value={10}/>
+        <div className="dices">
+          {diceElements}
         </div>
       </main>
     </div>
