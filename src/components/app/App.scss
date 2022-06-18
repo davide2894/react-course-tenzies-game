@@ -9,6 +9,16 @@
   margin: 20px auto;
   border: 20px solid;
   background-color: $elephant;
+
+  &__title {
+    font-size: rem(40px);
+    margin: 0;
+  }
+
+  &__instructions {
+    font-family: "Inter", sans-serif;
+    margin: 30px 40px;
+    text-align: center;  }
 }
 
 main {
