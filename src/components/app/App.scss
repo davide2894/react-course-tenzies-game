@@ -28,3 +28,18 @@ main {
   grid-template-columns: repeat(5, 36px);
   grid-gap: 18px;
 }
+
+.rollButton {
+  background-color: $electric-violet;
+  color: $white;
+  margin-top: 25px;
+  padding: 10px;
+  width: 125px;
+  border-radius: 2%;
+  border-color: transparent;
+  cursor: pointer;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
