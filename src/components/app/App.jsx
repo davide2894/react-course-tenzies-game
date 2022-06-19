@@ -21,6 +21,8 @@ function App() {
     currentDieId: ""    
   });
 
+  const isGameWonClassName = "app_win";
+
   function allNewDice(){
     var newDiceArray = [];
     for(var i = 0; i < 10; i++) {
@@ -83,8 +85,13 @@ function App() {
   useEffect(() => {
     if(!dice.find(dice => !dice.isHeld)){
       document.querySelector("main").style.backgroundColor = "lightgreen";
+      document.querySelector(".app").classList.add(isGameWonClassName);
     }
   }, [dice]);
+
+  function resetDice(){
+    setTenzies(allNewDice());
+  }
 
   const diceElements = dice.map(die => {     
     return <Die 
@@ -104,7 +111,11 @@ function App() {
         <div className="dices">
           {diceElements}
         </div>
-        <button className="rollButton" onClick={rollDice}>Roll</button>
+        <button className="button button--roll" onClick={rollDice}>Roll</button>
+        {
+          tenzies.isWin && 
+          <button className="button button--reset" onClick={resetDice}>Reset</button>
+        }
       </main>
     </div>
   );

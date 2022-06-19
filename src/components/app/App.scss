@@ -39,8 +39,7 @@ main {
   grid-gap: 18px;
 }
 
-.rollButton {
-  background-color: $electric-violet;
+.button {
   color: $white;
   margin-top: 25px;
   padding: 10px;
@@ -48,8 +47,16 @@ main {
   border-radius: 2%;
   border-color: transparent;
   cursor: pointer;
-
+  
   &:active {
     opacity: 0.9;
+  }
+
+  &--roll {
+    background-color: $electric-violet;
+  }
+
+  &--reset {
+    background-color: $ligth-green;
   }
 }
