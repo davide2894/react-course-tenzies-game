@@ -5,9 +5,9 @@ function Die(props) {
   return (
     <div 
       className={`die ${isHeldClassName}`}
-      onClick={(evt) => props.onDieClickHandler(evt, props.id)}
+      onClick={(evt) => props.onDieClickHandler(evt, props.id, props.number)}
     >
-      <h2 className="die__number">{props.value}</h2>
+      <h2 className="die__number">{props.number}</h2>
     </div>
   )
 }

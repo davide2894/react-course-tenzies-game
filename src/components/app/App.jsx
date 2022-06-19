@@ -1,6 +1,6 @@
 import './App.scss';
 import Die from '../die/Die';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function App() {
@@ -15,6 +15,11 @@ function App() {
  */
 
   const [dice, setDice] = useState(allNewDice());
+  const [tenzies, setTenzies] = useState({
+    targetNumber: undefined,
+    isWin: false,
+    currentDieId: ""    
+  });
 
   function allNewDice(){
     var newDiceArray = [];
@@ -34,7 +39,7 @@ function App() {
     };
   }
 
-  function updateDice(){
+  function rollDice(){
     setDice(prevDice => {
       return prevDice.map(die => {
         if(die.isHeld) {
@@ -46,11 +51,24 @@ function App() {
     })
   }
 
-  function onDieClickHandler(evt, id){
-    console.log({evt, id});
+  function onDieClickHandler(evt, id, number){
+    console.log({evt, id, number});
+    
+    setTenzies(prev => {
+      return {
+        ...prev,
+        targetNumber: !prev.targetNumber ? number : prev.targetNumber,
+        currentDieId: id
+      };
+    });
+  }
+
+  useEffect(() => {
+    console.log(tenzies);
+
     setDice(dicePrevState => {
       return dicePrevState.map(die => {
-        if(die.id === id) {
+        if(die.id === tenzies.currentDieId && die.number === tenzies.targetNumber) {
           return {
             ...die,
             isHeld: !die.isHeld
@@ -60,13 +78,19 @@ function App() {
         }
       });
     });
-  }
+  }, [tenzies]);
+
+  useEffect(() => {
+    if(!dice.find(dice => !dice.isHeld)){
+      document.querySelector("main").style.backgroundColor = "lightgreen";
+    }
+  }, [dice]);
 
   const diceElements = dice.map(die => {     
     return <Die 
       key={die.id}
       id={die.id} 
-      value={die.number} 
+      number={die.number} 
       isHeld={die.isHeld}
       onDieClickHandler={onDieClickHandler}
     />
@@ -80,7 +104,7 @@ function App() {
         <div className="dices">
           {diceElements}
         </div>
-        <button className="rollButton" onClick={updateDice}>Roll</button>
+        <button className="rollButton" onClick={rollDice}>Roll</button>
       </main>
     </div>
   );
