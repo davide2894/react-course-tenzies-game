@@ -81,7 +81,6 @@ function App() {
   }, [dice]);
 
   function resetDice(){
-    document.querySelector(".app").classList.remove(isGameWonClassName);
     setDice(allNewDice());
     setTenzies(false);
     setShowReset(false);
