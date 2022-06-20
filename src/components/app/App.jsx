@@ -54,9 +54,7 @@ function App() {
     })
   }
 
-  function onDieClickHandler(evt, id, number){
-    console.log({evt, id, number});
-    
+  function onDieClickHandler(evt, id, number){    
     setDice(dicePrevState => {
       return dicePrevState.map(die => {
         if(die.id === id && die.number === number) {
