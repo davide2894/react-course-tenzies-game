@@ -16,10 +16,7 @@ function App() {
  */
 
   const [dice, setDice] = useState(allNewDice());
-  const [tenzies, setTenzies] = useState({
-    winningNumber: undefined,
-    isWin: false,
-  });
+  const [tenzies, setTenzies] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
   const isGameWonClassName = "app__win";
@@ -86,10 +83,7 @@ function App() {
   function resetDice(){
     document.querySelector(".app").classList.remove(isGameWonClassName);
     setDice(allNewDice());
-    setTenzies({
-      targetNumber: undefined,
-      isWin: false,
-    });
+    setTenzies(false);
     setShowReset(false);
   }
 
@@ -106,7 +100,7 @@ function App() {
   return (
     <div className="app">
       <main>
-        {tenzies.isWin && <Confetti/>}
+        {tenzies && <Confetti/>}
         <h1 className="app__title">Tenzies</h1>
         <p className="app__instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className="dices">
