@@ -2,6 +2,7 @@ import './App.scss';
 import Die from '../die/Die';
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti'
 
 function App() {
 /**
@@ -16,12 +17,12 @@ function App() {
 
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState({
-    targetNumber: undefined,
+    winningNumber: undefined,
     isWin: false,
-    currentDieId: ""    
   });
+  const [showReset, setShowReset] = useState(false);
 
-  const isGameWonClassName = "app_win";
+  const isGameWonClassName = "app__win";
 
   function allNewDice(){
     var newDiceArray = [];
@@ -37,7 +38,7 @@ function App() {
     return {
       id: nanoid(),
       isHeld: false,
-      number: Math.floor(Math.random() * (6 - 1 + 1) + 1)
+      number: Math.floor(Math.random() * (6 - 1 + 1) + 1),
     };
   }
 
@@ -56,41 +57,42 @@ function App() {
   function onDieClickHandler(evt, id, number){
     console.log({evt, id, number});
     
-    setTenzies(prev => {
-      return {
-        ...prev,
-        targetNumber: !prev.targetNumber ? number : prev.targetNumber,
-        currentDieId: id
-      };
-    });
-  }
-
-  useEffect(() => {
-    console.log(tenzies);
-
     setDice(dicePrevState => {
       return dicePrevState.map(die => {
-        if(die.id === tenzies.currentDieId && die.number === tenzies.targetNumber) {
+        if(die.id === id && die.number === number) {
           return {
             ...die,
-            isHeld: !die.isHeld
-          }
-        } else {
+            isHeld: !dicePrevState[0].number ? true :
+              number === dicePrevState[0].number ? true : false,
+            }
+        }
+         else {
           return die;
         }
       });
-    });
-  }, [tenzies]);
+    });  
+  }
 
   useEffect(() => {
     if(!dice.find(dice => !dice.isHeld)){
-      document.querySelector("main").style.backgroundColor = "lightgreen";
-      document.querySelector(".app").classList.add(isGameWonClassName);
+      setTenzies(old => {
+        return {
+          ...old,
+          isWin: true,
+        }
+      });
+      setShowReset(true);
     }
   }, [dice]);
 
   function resetDice(){
-    setTenzies(allNewDice());
+    document.querySelector(".app").classList.remove(isGameWonClassName);
+    setDice(allNewDice());
+    setTenzies({
+      targetNumber: undefined,
+      isWin: false,
+    });
+    setShowReset(false);
   }
 
   const diceElements = dice.map(die => {     
@@ -106,15 +108,18 @@ function App() {
   return (
     <div className="app">
       <main>
+        {tenzies.isWin && <Confetti/>}
         <h1 className="app__title">Tenzies</h1>
         <p className="app__instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className="dices">
           {diceElements}
         </div>
-        <button className="button button--roll" onClick={rollDice}>Roll</button>
         {
-          tenzies.isWin && 
-          <button className="button button--reset" onClick={resetDice}>Reset</button>
+          showReset 
+            ?
+              <button className="button button--reset" onClick={resetDice}>Reset</button> 
+            :
+              <button className="button button--roll" onClick={rollDice}>Roll</button>
         }
       </main>
     </div>
