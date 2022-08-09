@@ -19,8 +19,6 @@ function App() {
   const [tenzies, setTenzies] = useState(false);
   const [showReset, setShowReset] = useState(false);
 
-  const isGameWonClassName = "app__win";
-
   function allNewDice(){
     var newDiceArray = [];
     for(var i = 0; i < 10; i++) {
