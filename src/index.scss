@@ -1,5 +1,5 @@
-@import './reset.scss';
-@import '_shared';
+@use './reset.scss' as *;
+@use '_shared' as *;
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Karla:wght@700&display=swap");
 
 body {

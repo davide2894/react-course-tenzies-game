@@ -9,7 +9,7 @@ A small project, my gaol is to reinforce and practice React state management and
 
 # TODO
 [x] fix style on all devices
-[] scss: use @use instead of @import
-[] fix js -> can't click same selected die after page reload
+[x] scss: use @use instead of @import (fix rources build errors)
+[] fix js -> can't click same selected die after page reload -> check console logs on click
 [] test
 [] deploy app by using gh-pages 

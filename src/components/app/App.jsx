@@ -26,6 +26,7 @@ function App() {
         createNewDie()
       );
     }
+    console.log(newDiceArray);
     return newDiceArray;
   }
 
@@ -39,19 +40,21 @@ function App() {
 
   function rollDice(){
     setDice(prevDice => {
-      return prevDice.map(die => {
+      const dice = prevDice.map(die => {
         if(die.isHeld) {
           return die;
         } else {
           return createNewDie();
         }
-      })
+      });
+      console.log(dice);
+      return dice;
     })
   }
 
   function onDieClickHandler(evt, id, number){    
     setDice(dicePrevState => {
-      return dicePrevState.map(die => {
+      const dice = dicePrevState.map(die => {
         if(die.id === id && die.number === number) {
           return {
             ...die,
@@ -63,6 +66,8 @@ function App() {
           return die;
         }
       });
+      console.log(dice);
+      return dice;  
     });  
   }
 
