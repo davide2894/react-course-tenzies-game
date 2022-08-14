@@ -15,9 +15,10 @@ function App() {
  * `id: nanoid()` so any new dice have an `id` as well.
  */
 
-  const [dice, setDice] = useState(allNewDice());
+  const [dice, setDice] = useState(() => allNewDice());
   const [tenzies, setTenzies] = useState(false);
   const [showReset, setShowReset] = useState(false);
+  const [selectedDieNumber, setSelectedDieNumber] = useState(undefined);
 
   function allNewDice(){
     var newDiceArray = [];
@@ -56,10 +57,11 @@ function App() {
     setDice(dicePrevState => {
       const dice = dicePrevState.map(die => {
         if(die.id === id && die.number === number) {
+          const tenziesWinningNumberChosen = (dicePrevState.length && dicePrevState.find(die => die.isHeld));
           return {
             ...die,
-            isHeld: !dicePrevState[0].number ? true :
-              number === dicePrevState[0].number ? true : false,
+            isHeld: !tenziesWinningNumberChosen ? setFirstIsHeldHanlder(die.number) :
+              number === selectedDieNumber ? true : false,
             }
         }
          else {
@@ -69,6 +71,11 @@ function App() {
       console.log(dice);
       return dice;  
     });  
+  }
+
+  function setFirstIsHeldHanlder(number){
+    setSelectedDieNumber(number);
+    return true;
   }
 
   useEffect(() => {
@@ -107,6 +114,7 @@ function App() {
         <p className="app__instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className="dices">
           {diceElements}
+          <button className="button button--reset" onClick={resetDice}>Reset</button> 
         </div>
         {
           showReset 
