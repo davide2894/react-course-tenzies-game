@@ -13,5 +13,6 @@ A small project, my gaol is to reinforce and practice React state management and
 [] fix js
     [x] fix die selection logic: all dices should be selected, not only the first of the dice list and the ones with the same number of the first of the dice list
     [] can't click same selected die after page reload -> check console logs on click
+    [] use the same id as both html attribute AND props for die elements, if possibkle
 [] test
 [] deploy app by using gh-pages 
