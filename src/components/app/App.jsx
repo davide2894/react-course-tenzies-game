@@ -15,10 +15,10 @@ function App() {
  * `id: nanoid()` so any new dice have an `id` as well.
  */
 
-  const [dice, setDice] = useState(() => allNewDice());
+  const [dice, setDice] = useState(() => JSON.parse(localStorage.getItem("tenzies/dice")) || allNewDice());
   const [tenzies, setTenzies] = useState(false);
   const [showReset, setShowReset] = useState(false);
-  const [selectedDieNumber, setSelectedDieNumber] = useState(undefined);
+  const [selectedDieNumber, setSelectedDieNumber] = useState(() => JSON.parse(localStorage.getItem("tenzies/selectedDieNumber")) || "");
 
   function allNewDice(){
     var newDiceArray = [];
@@ -79,6 +79,7 @@ function App() {
   }
 
   useEffect(() => {
+    localStorage.setItem("tenzies/dice", JSON.stringify(dice));
     if(!dice.find(dice => !dice.isHeld)){
       setTenzies(old => {
         return {
@@ -89,6 +90,10 @@ function App() {
       setShowReset(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    localStorage.setItem("tenzies/selectedDieNumber", JSON.stringify(selectedDieNumber || ""));
+  }, [selectedDieNumber])
 
   function resetDice(){
     setDice(allNewDice());

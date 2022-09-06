@@ -12,7 +12,8 @@ A small project, my gaol is to reinforce and practice React state management and
 [x] scss: use @use instead of @import (fix rources build errors)
 [] fix js
     [x] fix die selection logic: all dices should be selected, not only the first of the dice list and the ones with the same number of the first of the dice list
-    [] can't click same selected die after page reload -> check console logs on click
-    [] use the same id as both html attribute AND props for die elements, if possibkle
-[] test
-[] deploy app by using gh-pages 
+    [x] can't click same selected die after page reload -> check console logs on click
+        [x] keep state of dice array on page refresh
+        [x] keep state of held dice (tenziesNumber) stat eon page refresh
+[x] test
+[] deploy app by using gh-pages
