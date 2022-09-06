@@ -119,7 +119,6 @@ function App() {
         <p className="app__instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className="dices">
           {diceElements}
-          <button className="button button--reset" onClick={resetDice}>Reset</button> 
         </div>
         {
           showReset 

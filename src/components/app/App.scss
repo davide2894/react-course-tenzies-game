@@ -46,7 +46,7 @@ main {
 .dices {
   display: grid;
   grid-template-rows: repeat(4, 85px);
-  grid-template-columns: repeat(3, 66px);
+  grid-template-columns: repeat(3, 90px);
   grid-gap: 30px;
 
   @media only screen and (min-width: 768px) {
