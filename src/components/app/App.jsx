@@ -1,20 +1,10 @@
 import "./App.scss";
 import { MemoizedDie } from "../die/Die";
 import { useEffect, useState, useCallback } from "react";
-import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
+import { allNewDice, createNewDie } from "../../utils/utils";
 
 function App() {
-  /**
-   * Challenge: Update the `rollDice` function to not just roll
-   * all new dice, but instead to look through the existing dice
-   * to NOT role any that are being `held`.
-   *
-   * Hint: this will look relatively similiar to the `holdDice`
-   * function below. When creating new dice, remember to use
-   * `id: nanoid()` so any new dice have an `id` as well.
-   */
-
   const [dice, setDice] = useState(
     () => JSON.parse(localStorage.getItem("tenzies/dice")) || allNewDice()
   );
@@ -23,23 +13,6 @@ function App() {
   const [selectedDieNumber, setSelectedDieNumber] = useState(
     () => JSON.parse(localStorage.getItem("tenzies/selectedDieNumber")) || ""
   );
-
-  function allNewDice() {
-    var newDiceArray = [];
-    for (var i = 0; i < 10; i++) {
-      newDiceArray.push(createNewDie());
-    }
-    console.log(newDiceArray);
-    return newDiceArray;
-  }
-
-  function createNewDie() {
-    return {
-      id: nanoid(),
-      isHeld: false,
-      number: Math.floor(Math.random() * (6 - 1 + 1) + 1),
-    };
-  }
 
   function rollDice() {
     setDice((prevDice) => {
