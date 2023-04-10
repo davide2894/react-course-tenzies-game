@@ -9,7 +9,7 @@ export const allNewDice = () => {
   return newDiceArray;
 };
 
-const createNewDie = () => {
+export const createNewDie = () => {
   return {
     id: nanoid(),
     isHeld: false,
